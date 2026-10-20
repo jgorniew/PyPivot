@@ -1,6 +1,6 @@
 services:
   operator:
-    buildd: ./docker
+    build: ./docker
     command: sleep infinity
     networks:
       net_front:
@@ -11,7 +11,7 @@ services:
     command: sleep infinity
     networks:
       net_front:
-        ipv4_address: 172.29.10.10
+        ipv4_address: 172.29.10.20
       net_back: 
         ipv4_address: 172.29.20.20
 
@@ -22,17 +22,17 @@ services:
       net_back:
         ipv4_address: 172.29.20.10
 
-  networks:
-    net_front:
-      driver: bridge
-      internal: true
-      ipam:
-        config:
-          - subnet: 172.29.10.0/24
+networks:
+   net_front:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.29.10.0/24
 
-    net_back:
-      driver: bridge
-      internal: true
-      ipam:
-        config:
-          -subnet: 172.29.20.0/24
+   net_back:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.29.20.0/24
