@@ -1,0 +1,38 @@
+services:
+  operator:
+    buildd: ./docker
+    command: sleep infinity
+    networks:
+      net_front:
+        ipv4_address: 172.29.10.10
+
+  pivot:
+    build: ./docker
+    command: sleep infinity
+    networks:
+      net_front:
+        ipv4_address: 172.29.10.10
+      net_back: 
+        ipv4_address: 172.29.20.20
+
+  target: 
+    build: ./docker
+    command: python -m http.server 8000 --bind 0.0.0.0
+    networks:
+      net_back:
+        ipv4_address: 172.29.20.10
+
+  networks:
+    net_front:
+      driver: bridge
+      internal: true
+      ipam:
+        config:
+          - subnet: 172.29.10.0/24
+
+    net_back:
+      driver: bridge
+      internal: true
+      ipam:
+        config:
+          -subnet: 172.29.20.0/24
