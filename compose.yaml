@@ -2,6 +2,8 @@ services:
   operator:
     build: ./docker
     command: sleep infinity
+    volumes:
+      - ./src:/app/src
     networks:
       net_front:
         ipv4_address: 172.29.10.10
@@ -9,6 +11,8 @@ services:
   pivot:
     build: ./docker
     command: sleep infinity
+    volumes:
+      - ./src:/app/src
     networks:
       net_front:
         ipv4_address: 172.29.10.20
@@ -18,6 +22,8 @@ services:
   target: 
     build: ./docker
     command: python -m http.server 8000 --bind 0.0.0.0
+    volumes:
+      - ./src:/app/src
     networks:
       net_back:
         ipv4_address: 172.29.20.10
